@@ -1,3 +1,5 @@
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 public class Personagem {
 	//------dados do personagem---------
@@ -41,6 +43,36 @@ public class Personagem {
 	
 	public String getNome() {
 		return this.nome;
+	}
+	
+	public void cadastraPersonagens(int numeroPersonagens) {
+		Personagem[] personagens = new Personagem[numeroPersonagens];
+		
+		Classe mago = new Mago();
+		Classe vampiro = new Vampiro();
+		Classe guerreiro = new Guerreiro();
+		Classe piromante = new Piromante();
+		
+		Classe[] classes = {mago, vampiro, guerreiro, piromante};
+		
+		JDialog.setDefaultLookAndFeelDecorated(true);
+	   
+		for(int i = 0; i<numeroPersonagens; i++) {
+			
+			 Classe classeAtual = (Classe) JOptionPane.showInputDialog(null, "Escolha uma classe",
+				        "Classes", JOptionPane.QUESTION_MESSAGE, null, classes, null);
+			
+			String nomeAtual = JOptionPane.showInputDialog("Nome: ");
+			int idadeAtual = Integer.parseInt(JOptionPane.showInputDialog("Idade"));
+			double alturaAtual = Double.parseDouble(JOptionPane.showInputDialog("Altura: "));
+			
+			classeAtual.criaClasse();
+			
+			personagens[i] = new Personagem();
+			personagens[i].addPersonagem(nomeAtual, idadeAtual, alturaAtual, classeAtual);
+			
+			System.out.println(personagens[i].mostraPersonagem());
+		}
 	}
 	
 }
