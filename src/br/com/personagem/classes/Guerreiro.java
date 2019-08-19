@@ -1,3 +1,6 @@
+package br.com.personagem.classes;
+
+import br.com.personagem.config.Classe;
 
 public class Guerreiro extends Classe{
 

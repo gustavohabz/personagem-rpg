@@ -1,5 +1,12 @@
+package br.com.personagem.config;
+
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+
+import br.com.personagem.classes.Guerreiro;
+import br.com.personagem.classes.Mago;
+import br.com.personagem.classes.Piromante;
+import br.com.personagem.classes.Vampiro;
 
 public class Personagem {
 	//------dados do personagem---------
@@ -16,6 +23,9 @@ public class Personagem {
 	private int nivel;
 	Classe classe;
 	
+	//---------numero de personagens--------
+	private static int numeroDePersonagensTotal;
+	
 	public void addPersonagem(String nome, int idade, double altura, Classe classe) {
 		//DADOS DO PERSONAGEM
 		this.nome = nome;
@@ -30,6 +40,8 @@ public class Personagem {
 		this.arma = this.classe.arma;
 		this.armadura = this.classe.armadura;
 		this.nivel = this.classe.nivel;
+		
+		Personagem.numeroDePersonagensTotal++;
 	}
 	
 	public String mostraPersonagem() {
@@ -45,6 +57,10 @@ public class Personagem {
 		return this.nome;
 	}
 	
+	/***
+	 * cadastrar todos os personagens
+	 * @param numeroPersonagens
+	 */
 	public void cadastraPersonagens(int numeroPersonagens) {
 		Personagem[] personagens = new Personagem[numeroPersonagens];
 		
@@ -55,24 +71,48 @@ public class Personagem {
 		
 		Classe[] classes = {mago, vampiro, guerreiro, piromante};
 		
-		JDialog.setDefaultLookAndFeelDecorated(true);
 	   
 		for(int i = 0; i<numeroPersonagens; i++) {
+			Classe classeAtual;
+			String nomeAtual;
+			int idadeAtual = 0;
+			double alturaAtual = 0;
 			
-			 Classe classeAtual = (Classe) JOptionPane.showInputDialog(null, "Escolha uma classe",
+			classeAtual = (Classe) JOptionPane.showInputDialog(null, "Escolha uma classe",
 				        "Classes", JOptionPane.QUESTION_MESSAGE, null, classes, null);
 			
-			String nomeAtual = JOptionPane.showInputDialog("Nome: ");
-			int idadeAtual = Integer.parseInt(JOptionPane.showInputDialog("Idade"));
-			double alturaAtual = Double.parseDouble(JOptionPane.showInputDialog("Altura: "));
+			nomeAtual = JOptionPane.showInputDialog("Nome: ");
+			try {
+				idadeAtual = Integer.parseInt(JOptionPane.showInputDialog("Idade"));
+			}catch(NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null, "Idade invalida");
+			}
+			alturaAtual = Double.parseDouble(JOptionPane.showInputDialog("Altura: "));
 			
 			classeAtual.criaClasse();
 			
 			personagens[i] = new Personagem();
 			personagens[i].addPersonagem(nomeAtual, idadeAtual, alturaAtual, classeAtual);
 			
-			System.out.println(personagens[i].mostraPersonagem());
+			System.out.println(nomeAtual+" foi cadastrado.");
 		}
+	}
+	/***
+	 * listar todos os personagens
+	 * @return
+	 */
+	public String getPersonagens() {
+		if(Personagem.numeroDePersonagensTotal>0) {
+			String texto = "";
+			Personagem[] personagens = new Personagem[numeroDePersonagensTotal];
+			personagens[0] = new Personagem();
+			personagens[0].getNome();
+			for(int i=0; i<Personagem.numeroDePersonagensTotal; i++) {
+				texto += personagens[i].getNome();
+			}
+			return texto;
+		}
+		return "Sem personagens até o momento";
 	}
 	
 }

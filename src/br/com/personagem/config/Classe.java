@@ -1,4 +1,4 @@
-
+package br.com.personagem.config;
 public abstract class Classe {
 	protected String nome;
 	protected String arma;
@@ -9,6 +9,10 @@ public abstract class Classe {
 	
 	public String getClasse() {
 		return "Nome da classe: "+this.nome+"\n Arma da classe: "+this.arma+"\n Armadura da classe: "+this.armadura+"\n Nivel inicial da classe: "+this.nivel;
+	}
+		
+	public String getNomeClasse() {
+		return this.nome;
 	}
 	
 }
