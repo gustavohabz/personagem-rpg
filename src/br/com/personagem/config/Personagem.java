@@ -61,8 +61,7 @@ public class Personagem {
 	 * cadastrar todos os personagens
 	 * @param numeroPersonagens
 	 */
-	public void cadastraPersonagens(int numeroPersonagens) {
-		Personagem[] personagens = new Personagem[numeroPersonagens];
+	public void cadastraPersonagens(int numeroPersonagens) {		
 		
 		Classe mago = new Mago();
 		Classe vampiro = new Vampiro();
@@ -71,48 +70,51 @@ public class Personagem {
 		
 		Classe[] classes = {mago, vampiro, guerreiro, piromante};
 		
-	   
-		for(int i = 0; i<numeroPersonagens; i++) {
-			Classe classeAtual;
-			String nomeAtual;
-			int idadeAtual = 0;
-			double alturaAtual = 0;
-			
-			classeAtual = (Classe) JOptionPane.showInputDialog(null, "Escolha uma classe",
-				        "Classes", JOptionPane.QUESTION_MESSAGE, null, classes, null);
-			
-			nomeAtual = JOptionPane.showInputDialog("Nome: ");
-			try {
-				idadeAtual = Integer.parseInt(JOptionPane.showInputDialog("Idade"));
-			}catch(NumberFormatException ex) {
-				JOptionPane.showMessageDialog(null, "Idade invalida");
-			}
-			alturaAtual = Double.parseDouble(JOptionPane.showInputDialog("Altura: "));
-			
-			classeAtual.criaClasse();
-			
-			personagens[i] = new Personagem();
-			personagens[i].addPersonagem(nomeAtual, idadeAtual, alturaAtual, classeAtual);
-			
-			System.out.println(nomeAtual+" foi cadastrado.");
+		Classe classeAtual;
+		String nomeAtual;
+		int idadeAtual = 0;
+		double alturaAtual = 0;
+		
+		classeAtual = (Classe) JOptionPane.showInputDialog(null, "Escolha uma classe",
+			        "Classes", JOptionPane.QUESTION_MESSAGE, null, classes, null);
+		
+		nomeAtual = JOptionPane.showInputDialog("Nome: ");
+		try {
+			idadeAtual = Integer.parseInt(JOptionPane.showInputDialog("Idade"));
+		}catch(NumberFormatException ex) {
+			JOptionPane.showMessageDialog(null, "Idade invalida");
 		}
+		alturaAtual = Double.parseDouble(JOptionPane.showInputDialog("Altura: "));
+		
+		classeAtual.criaClasse();
+		
+		
+		this.addPersonagem(nomeAtual, idadeAtual, alturaAtual, classeAtual);
+		
+		System.out.println(nomeAtual+" foi cadastrado.");
 	}
 	/***
 	 * listar todos os personagens
 	 * @return
 	 */
-	public String getPersonagens() {
+	public String getPersonagens(Object referencias) {
 		if(Personagem.numeroDePersonagensTotal>0) {
 			String texto = "";
-			Personagem[] personagens = new Personagem[numeroDePersonagensTotal];
+			/*Personagem[] personagens = new Personagem[numeroDePersonagensTotal];
 			personagens[0] = new Personagem();
-			personagens[0].getNome();
-			for(int i=0; i<Personagem.numeroDePersonagensTotal; i++) {
+			personagens[0].getNome();*/
+			System.out.println(this.nome);
+			/*for(int i=0; i<Personagem.numeroDePersonagensTotal; i++) {
 				texto += personagens[i].getNome();
-			}
+			}*/
 			return texto;
 		}
 		return "Sem personagens até o momento";
+	}
+	
+	@Override
+	public String toString() {
+		return this.mostraPersonagem();
 	}
 	
 }
